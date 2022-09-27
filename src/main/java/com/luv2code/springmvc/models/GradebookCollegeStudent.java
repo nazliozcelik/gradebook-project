@@ -1,6 +1,6 @@
 package com.luv2code.springmvc.models;
 
-public class GradebookCollegeStudent extends CollegeStudent {
+public class GradebookCollegeStudent extends CollegeStudent{
 
     private int id;
 
