@@ -27,7 +27,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestPropertySource("/application.properties")
@@ -90,7 +90,7 @@ public class GradebookControllerTest {
 
         assertIterableEquals(collegeStudentList, studentCreateServiceMock.getGradebook());
 
-        MvcResult mvcResult = this.mockMvc.perform(post("/").contentType(MediaType.APPLICATION_JSON)
+        MvcResult mvcResult = mockMvc.perform(post("/").contentType(MediaType.APPLICATION_JSON)
                                 .param("firstname", request.getParameterValues("firstname"))
                                 .param("lastname", request.getParameterValues("lastname"))
                                 .param("emailAddress", request.getParameterValues("emailAddress")))
@@ -103,6 +103,19 @@ public class GradebookControllerTest {
         CollegeStudent verifyStudent = studentDao.findByEmailAddress("chad.darby@test.com");
 
         assertNotNull(verifyStudent);
+    }
+
+    @Test
+    public void deleteStudentHttpRequest() throws Exception {
+        assertTrue(studentDao.findById(1).isPresent());
+
+        MvcResult mvcResult = mockMvc.perform(delete("/delete/student/{id}",1)).andExpect(status().isOk()).andReturn();
+
+        ModelAndView mav = mvcResult.getModelAndView();
+
+        ModelAndViewAssert.assertViewName(mav, "index");
+
+        assertFalse(studentDao.findById(1).isPresent());
     }
 
     @AfterEach
