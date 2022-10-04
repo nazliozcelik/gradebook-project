@@ -21,7 +21,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -121,8 +123,22 @@ public class GradebookRestControllerTest {
         entityManager.persist(student);
         entityManager.flush();
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/")).andExpect(status().isOk())
+        mockMvc.perform(get("/")).andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON_UTF8)).andExpect(jsonPath("$", hasSize(2)));
+    }
+
+    @Test
+    public void createStudentHttpRequest() throws Exception{
+        student.setFirstname("Chad");
+        student.setLastname("Darby");
+        student.setEmailAddress("chad.darby@test.com");
+
+        mockMvc.perform(post("/").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(student)))
+                .andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(2)));
+
+        CollegeStudent verfyStudent = studentDao.findByEmailAddress("chad.darby@test.com");
+
+        assertNotNull(verfyStudent);
     }
 
     @AfterEach
