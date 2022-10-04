@@ -108,7 +108,7 @@ public class GradebookControllerTest {
         jdbc.execute(sqlAddHistoryGrade);
     }
 
-    @Test
+    /*@Test
     public void getStudentHttpRequest() throws Exception {
         CollegeStudent studentOne = new CollegeStudent("Eric", "Roby", "eric.roby@test.com");
         CollegeStudent studentTwo = new CollegeStudent("Chad", "Darby", "chad.darby@test.com");
@@ -150,7 +150,7 @@ public class GradebookControllerTest {
 
         assertNotNull(verifyStudent);
     }
-
+*/
     @Test
     public void deleteStudentHttpRequest() throws Exception {
         assertTrue(studentDao.findById(1).isPresent());
