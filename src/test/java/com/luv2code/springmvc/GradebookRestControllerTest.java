@@ -22,6 +22,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import org.springframework.transaction.annotation.Transactional;
@@ -139,6 +140,25 @@ public class GradebookRestControllerTest {
         CollegeStudent verfyStudent = studentDao.findByEmailAddress("chad.darby@test.com");
 
         assertNotNull(verfyStudent);
+    }
+
+    @Test
+    public void deleteStudentHttpRequest() throws Exception{
+        assertTrue(studentDao.findById(1).isPresent());
+
+        mockMvc.perform(delete("/student/{id}", 1)).andExpect(status().isOk()).andExpect(content().contentType(APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$", hasSize(0)));
+
+        assertFalse(studentDao.findById(1).isPresent());
+    }
+
+    @Test
+    public void deleteStudentHttpRequestErrorPage() throws Exception{
+        assertFalse(studentDao.findById(0).isPresent());
+
+        mockMvc.perform(delete("/student/{id}", 0)).andExpect(status().is4xxClientError())
+                .andExpect(jsonPath("$.status", is(404)))
+                .andExpect(jsonPath("$.message", is("Student or Grade was not found")));
     }
 
     @AfterEach
