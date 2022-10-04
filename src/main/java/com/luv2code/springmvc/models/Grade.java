@@ -1,15 +1,18 @@
 package com.luv2code.springmvc.models;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public interface Grade {
-    double getGrade();
+    public double getGrade();
 
-    int getId();
+    public int getId();
 
-    void setId(int id);
+    public void setId(int id);
 
-    int getStudentId();
+    public int getStudentId();
 
-    void setStudentId(int studentId);
+    public void setStudentId(int studentId);
 
-    void setGrade(double grade);
+    public void setGrade(double grade);
 }

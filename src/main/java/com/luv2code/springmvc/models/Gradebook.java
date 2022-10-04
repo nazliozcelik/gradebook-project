@@ -8,7 +8,7 @@ import java.util.List;
 @Component
 public class Gradebook {
 
-    private List<GradebookCollegeStudent> students = new ArrayList<>();
+    List<GradebookCollegeStudent> students = new ArrayList<>();
 
     public Gradebook() {
 

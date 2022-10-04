@@ -9,11 +9,11 @@ import java.util.List;
 @Component
 public class StudentGrades {
 
-    private List<Grade> mathGradeResults;
+    List<Grade> mathGradeResults;
 
-    private List<Grade> scienceGradeResults;
+    List<Grade> scienceGradeResults;
 
-    private List<Grade> historyGradeResults;
+    List<Grade> historyGradeResults;
 
     public StudentGrades() {}
 
