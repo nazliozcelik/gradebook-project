@@ -138,7 +138,7 @@ public class StudentAndGradeServiceTest {
 
         assertEquals("Eric", gradebookCollegeStudentTest.getFirstname());
         assertEquals("Roby", gradebookCollegeStudentTest.getLastname());
-        assertEquals("eric.roby@luv2code_school.com", gradebookCollegeStudentTest.getEmailAddress());
+        assertEquals("eric.roby@test.com", gradebookCollegeStudentTest.getEmailAddress());
 
     }
 
